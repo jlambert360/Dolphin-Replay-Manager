@@ -37,6 +37,7 @@ namespace Bird_s_Replay_Manager
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panelReplaySubmenu = new System.Windows.Forms.Panel();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.refreshButton = new System.Windows.Forms.Button();
             this.moveReplaysButton = new System.Windows.Forms.Button();
             this.renameButton = new System.Windows.Forms.Button();
@@ -53,7 +54,6 @@ namespace Bird_s_Replay_Manager
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.deleteButton = new System.Windows.Forms.Button();
             this.panelSideMenu.SuspendLayout();
             this.titleBarPanel2.SuspendLayout();
             this.panelReplaySubmenu.SuspendLayout();
@@ -120,6 +120,21 @@ namespace Bird_s_Replay_Manager
             this.panelReplaySubmenu.Name = "panelReplaySubmenu";
             this.panelReplaySubmenu.Size = new System.Drawing.Size(250, 248);
             this.panelReplaySubmenu.TabIndex = 2;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.FlatAppearance.BorderSize = 0;
+            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.deleteButton.Location = new System.Drawing.Point(0, 160);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.deleteButton.Size = new System.Drawing.Size(250, 40);
+            this.deleteButton.TabIndex = 5;
+            this.deleteButton.Text = "Delete replay";
+            this.deleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // refreshButton
             // 
@@ -347,21 +362,6 @@ namespace Bird_s_Replay_Manager
             this.listBox1.Size = new System.Drawing.Size(227, 398);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.FlatAppearance.BorderSize = 0;
-            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteButton.ForeColor = System.Drawing.Color.Gainsboro;
-            this.deleteButton.Location = new System.Drawing.Point(0, 160);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.deleteButton.Size = new System.Drawing.Size(250, 40);
-            this.deleteButton.TabIndex = 5;
-            this.deleteButton.Text = "Delete replay";
-            this.deleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // Form1
             // 
