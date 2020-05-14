@@ -48,14 +48,29 @@ namespace Bird_s_Replay_Manager
                 System.Windows.Forms.MessageBox.Show("Please select the folder that contains Dolphin.exe", "Error!"); //Show an error popup
                 fileBrowse(); //Reopen the file browser
             }
-            listBox1.DataSource = null; //Clear data in listbox1
-            listBox1.Items.Clear(); //Clear text in listbox1
-            listBox2.DataSource = null; //Clear data in listbox2
-            listBox2.Items.Clear(); //Clear text in listbox2
-            listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
-            listBox2.Items.Add("User Save Folder"); //Add text User Save Folder as 1st string in listbox2
-            PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files to listbox1
-            PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files to listbox2
+            if (!Directory.Exists(dolphinPath + "/ReplayData")) //Check if ReplayData folder exists
+            {
+                Directory.CreateDirectory(dolphinPath + "/ReplayData"); //Create ReplayData folder
+                listBox1.DataSource = null; //Clear data in listbox1
+                listBox1.Items.Clear(); //Clear text in listbox1
+                listBox2.DataSource = null; //Clear data in listbox2
+                listBox2.Items.Clear(); //Clear text in listbox2
+                listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
+                listBox2.Items.Add("User Save Folder"); //Add text User Save Folder as 1st string in listbox2
+                PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files to listbox1
+                PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files to listbox2
+            }
+            else //If ReplayData folder exists
+            {
+                listBox1.DataSource = null; //Clear data in listbox1
+                listBox1.Items.Clear(); //Clear text in listbox1
+                listBox2.DataSource = null; //Clear data in listbox2
+                listBox2.Items.Clear(); //Clear text in listbox2
+                listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
+                listBox2.Items.Add("User Save Folder"); //Add text User Save Folder as 1st string in listbox2
+                PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files to listbox1
+                PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files to listbox2
+            }
         }
 
         private void fileBrowse()
@@ -90,49 +105,54 @@ namespace Bird_s_Replay_Manager
         private void useReplayButton_Click(object sender, EventArgs e)
         {
             if (itemSelected == true) //Check if an item is selected
+            {
                 replayFilePath = dolphinPath + "/ReplayData/" + listBox1.SelectedItem.ToString(); //Set replayFilePath to the selected replay file
 
-            while (File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //While there is a collect.vff file in the user folder
-            {
-                string path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to a default backup in the ReplayData folder
-
-                for (int i = 1; File.Exists(path);  ++i) //Add 1 to file name until no matching file name is found
+                while (File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //While there is a collect.vff file in the user folder
                 {
-                    if (!File.Exists(dolphinPath + "/ReplayData/collect Backup 1.vff")) //If default replay backup doesnt't exist
-                        path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to default replay backup
+                    string path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to a default backup in the ReplayData folder
 
-                    else if (File.Exists(path)) //But if a replay backup does exist
+                    for (int i = 1; File.Exists(path); ++i) //Add 1 to file name until no matching file name is found
                     {
-                        path = dolphinPath + "/ReplayData/collect Backup " + i + ".vff"; //Set path to backup + an open number
-                    }
-                }
+                        if (!File.Exists(dolphinPath + "/ReplayData/collect Backup 1.vff")) //If default replay backup doesnt't exist
+                            path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to default replay backup
 
-                System.IO.File.Move(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff", path); //Move the save file in the user folder to the ReplayData folder and rename it to backup
-                listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
-                listBox1.ClearSelected(); //Clear which replay was selected
-                listBox1.DataSource = null; //Clear data in listbox1
-                listBox1.Items.Clear(); //Clear text in listbox1
-                PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files back to listbox1
-                listBox2.DataSource = null; //Clear data in listbox2
-                listBox2.Items.Clear(); //Clear text in listbox2
-                PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files back up listbox2
-            }
-            if (!File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //If there is no replay save file in the user folder
-            {
-                System.IO.File.Move(replayFilePath, dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff"); //Move the selected replay to the user folder and rename it
-                listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
-                listBox1.ClearSelected(); //Clear which replay was selected
-                listBox1.DataSource = null; //Clear data in listbox1
-                listBox1.Items.Clear(); //Clear text in listbox1
-                PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files back to listbox1
-                listBox2.DataSource = null; //Clear data in listbox2
-                listBox2.Items.Clear(); //Clear text in listbox2
-                PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files back up listbox2
+                        else if (File.Exists(path)) //But if a replay backup does exist
+                        {
+                            path = dolphinPath + "/ReplayData/collect Backup " + i + ".vff"; //Set path to backup + an open number
+                        }
+                    }
+
+                    System.IO.File.Move(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff", path); //Move the save file in the user folder to the ReplayData folder and rename it to backup
+                    listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
+                    listBox1.ClearSelected(); //Clear which replay was selected
+                    listBox1.DataSource = null; //Clear data in listbox1
+                    listBox1.Items.Clear(); //Clear text in listbox1
+                    listBox2.DataSource = null; //Clear data in listbox2
+                    listBox2.Items.Clear(); //Clear text in listbox2
+                    PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files back to listbox1
+                    PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files back up listbox2
+                }
+                if (!File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //If there is no replay save file in the user folder
+                {
+                    System.IO.File.Move(replayFilePath, dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff"); //Move the selected replay to the user folder and rename it
+                    listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
+                    listBox1.ClearSelected(); //Clear which replay was selected
+                    listBox1.DataSource = null; //Clear data in listbox1
+                    listBox1.Items.Clear(); //Clear text in listbox1
+                    listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
+                    listBox2.DataSource = null; //Clear data in listbox2
+                    listBox2.Items.Clear(); //Clear text in listbox2
+                    listBox2.Items.Add("User Save Folder"); //Add text User Save Folder as 1st string in listbox2
+                    PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files back to listbox1
+                    PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files back up listbox2
+                }
             }
             else if (itemSelected == false) //If no item is selected
             {
                 MessageBox.Show("No item selected!", "Error!"); //Display an error popup
             }
+            itemSelected = false; //Set itemselected to false
         }
 
         private void renameButton_Click(object sender, EventArgs e)
@@ -141,26 +161,31 @@ namespace Bird_s_Replay_Manager
             {
                 MessageBox.Show("Please set the path to your dolphin folder!", "Error!"); //Display an error
             }
-            else
+            else //If a path was chosen
             {
-                inputBox(); //Open the input box
                 if (itemSelected == true) //Check if an item is selected
+                {
                     replayFilePath = dolphinPath + "/ReplayData/" + listBox1.SelectedItem.ToString(); //Set replayFilePath to the selected replay file
-                while (File.Exists(dolphinPath + "/ReplayData/" + userInput)) //Check if a file with the inputed name already exists
-                {
-                    MessageBox.Show("A file with the name " + userInput + " already exists!", "Error!"); //Display an error
-                    inputBox(); //Reopen the input box
+                    inputBox(); //Open the input box
+                    while (File.Exists(dolphinPath + "/ReplayData/" + userInput)) //Check if a file with the inputed name already exists
+                    {
+                        MessageBox.Show("A file with the name " + userInput + " already exists!", "Error!"); //Display an error
+                        inputBox(); //Reopen the input box
+                    }
+                    if (userInput != "" && !File.Exists(dolphinPath + "/ReplayData/" + userInput)) //If the input box isn't blank and a file with the user inputted name doesn't exist
+                    {
+                        System.IO.File.Move(replayFilePath, dolphinPath + "/ReplayData/" + userInput); //Rename the selected replay to the user's input
+                        listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
+                        listBox1.ClearSelected(); //Clear which replay was selected
+                        listBox1.DataSource = null; //Clear data in listbox1
+                        listBox1.Items.Clear(); //Clear text in listbox1
+                        listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
+                        itemSelected = false; //Set itemselected to false
+                        PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files back to listbox1
+                    }
                 }
-                if (userInput != "" && !File.Exists(dolphinPath + "/ReplayData/" + userInput)) //If the input box isn't blank and a file with the user inputted name doesn't exist
-                {
-                    System.IO.File.Move(replayFilePath, dolphinPath + "/ReplayData/" + userInput); //Rename the selected replay to the user's input
-                    listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
-                    listBox1.ClearSelected(); //Clear which replay was selected
-                    listBox1.DataSource = null; //Clear data in listbox1
-                    listBox1.Items.Clear(); //Clear text in listbox1
-                    listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
-                    PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files back to listbox1
-                }
+                else if (itemSelected == false) //Check if itemselected is false
+                    MessageBox.Show("No replay file selected!", "Error!"); //Display an error
             }
         }
 
@@ -176,7 +201,19 @@ namespace Bird_s_Replay_Manager
 
                     if (!name.Contains(".bin") && !name.Contains(".dat") && !name.Contains(".mod")) //Do nothing if the file is a .bin .dat or .mod file
                     {
-                        System.IO.File.Move(dolphinPath + "/User/Wii/title/00010000/52534245/data/" + name, dolphinPath + "/ReplayData/" + name); //Move all replay files to the replay folder
+                        string path = dolphinPath + "/ReplayData/collect.vff"; //Set path to a default backup in the ReplayData folder
+
+                        for (int i = 1; File.Exists(path); ++i) //Add 1 to file name until no matching file name is found
+                        {
+                            if (!File.Exists(dolphinPath + "/ReplayData/collect Backup 1.vff")) //If default replay backup doesnt't exist
+                                path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to default replay backup
+
+                            else if (File.Exists(path)) //But if a replay backup does exist
+                            {
+                                path = dolphinPath + "/ReplayData/collect Backup " + i + ".vff"; //Set path to backup + an open number
+                            }
+                        }
+                        System.IO.File.Move(dolphinPath + "/User/Wii/title/00010000/52534245/data/" + name, path); //Move all replay files to the replay folder
                     }
                 }
                 listBox1.DataSource = null; //Clear data in listbox1
@@ -192,6 +229,7 @@ namespace Bird_s_Replay_Manager
             {
                 MessageBox.Show("Please set the path to your dolphin folder!", "Error!"); //Display an error
             }
+            itemSelected = false; //Set itemselected to false
         }
         #endregion
 
@@ -285,8 +323,35 @@ namespace Bird_s_Replay_Manager
                 listBox2.Items.Clear(); //Clear text in listbox2
                 listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
                 listBox2.Items.Add("User Save Folder"); //Add text User Save Folder as 1st string in listbox2
+                itemSelected = false; //Set itemselected to false
                 PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files to listbox1
                 PopulateListBox(listBox2, dolphinPath + "/User/Wii/title/00010000/52534245/data/", "*"); //Add all .vff files to listbox2
+            }
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            if (dolphinPath == null) //If no path was chosen yet
+            {
+                MessageBox.Show("Please set the path to your dolphin folder!", "Error!"); //Display an error
+            }
+            else //If a path was chosen
+            {
+                if (itemSelected == true) //Check if an item is selected
+                    replayFilePath = dolphinPath + "/ReplayData/" + listBox1.SelectedItem.ToString(); //Set replayFilePath to the selected replay file
+                else if (itemSelected == false) //Check if itemselected is false
+                    MessageBox.Show("No replay file selected!", "Error!"); //Display an error
+                if (File.Exists(replayFilePath) && itemSelected == true) //If the replay file exists and an item is selected
+                {
+                    File.Delete(replayFilePath); //Delete selected replay
+                    listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
+                    listBox1.ClearSelected(); //Clear which replay was selected
+                    listBox1.DataSource = null; //Clear data in listbox1
+                    listBox1.Items.Clear(); //Clear text in listbox1
+                    listBox1.Items.Add("Replay Folder"); //Add text Replay Folder as 1st string in listbox1
+                    itemSelected = false; //Set itemselected to false
+                    PopulateListBox(listBox1, dolphinPath + "/ReplayData", "*"); //Add all .vff files back to listbox1
+                }
             }
         }
     }

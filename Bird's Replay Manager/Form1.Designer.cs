@@ -48,11 +48,12 @@ namespace Bird_s_Replay_Manager
             this.minimizeButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.panelToolBar = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panelChildForm = new System.Windows.Forms.Panel();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.panelSideMenu.SuspendLayout();
             this.titleBarPanel2.SuspendLayout();
             this.panelReplaySubmenu.SuspendLayout();
@@ -109,6 +110,7 @@ namespace Bird_s_Replay_Manager
             // panelReplaySubmenu
             // 
             this.panelReplaySubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(32)))), ((int)(((byte)(39)))));
+            this.panelReplaySubmenu.Controls.Add(this.deleteButton);
             this.panelReplaySubmenu.Controls.Add(this.refreshButton);
             this.panelReplaySubmenu.Controls.Add(this.moveReplaysButton);
             this.panelReplaySubmenu.Controls.Add(this.renameButton);
@@ -116,7 +118,7 @@ namespace Bird_s_Replay_Manager
             this.panelReplaySubmenu.Controls.Add(this.locationButton);
             this.panelReplaySubmenu.Location = new System.Drawing.Point(0, 155);
             this.panelReplaySubmenu.Name = "panelReplaySubmenu";
-            this.panelReplaySubmenu.Size = new System.Drawing.Size(250, 207);
+            this.panelReplaySubmenu.Size = new System.Drawing.Size(250, 248);
             this.panelReplaySubmenu.TabIndex = 2;
             // 
             // refreshButton
@@ -124,7 +126,7 @@ namespace Bird_s_Replay_Manager
             this.refreshButton.FlatAppearance.BorderSize = 0;
             this.refreshButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.refreshButton.ForeColor = System.Drawing.Color.Gainsboro;
-            this.refreshButton.Location = new System.Drawing.Point(0, 160);
+            this.refreshButton.Location = new System.Drawing.Point(0, 200);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.refreshButton.Size = new System.Drawing.Size(250, 40);
@@ -283,6 +285,32 @@ namespace Bird_s_Replay_Manager
             this.panelToolBar.Size = new System.Drawing.Size(684, 129);
             this.panelToolBar.TabIndex = 2;
             // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.textBox2.Location = new System.Drawing.Point(4, 8);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(65, 16);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.Text = "Instructions:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.textBox1.Location = new System.Drawing.Point(4, 27);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(676, 97);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
+            // 
             // panelChildForm
             // 
             this.panelChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
@@ -320,31 +348,20 @@ namespace Bird_s_Replay_Manager
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
-            // textBox1
+            // deleteButton
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox1.Location = new System.Drawing.Point(4, 27);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(676, 97);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(21)))), ((int)(((byte)(32)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.textBox2.Location = new System.Drawing.Point(4, 8);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(65, 16);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "Instructions:";
+            this.deleteButton.FlatAppearance.BorderSize = 0;
+            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteButton.ForeColor = System.Drawing.Color.Gainsboro;
+            this.deleteButton.Location = new System.Drawing.Point(0, 160);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.deleteButton.Size = new System.Drawing.Size(250, 40);
+            this.deleteButton.TabIndex = 5;
+            this.deleteButton.Text = "Delete replay";
+            this.deleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // Form1
             // 
@@ -393,6 +410,7 @@ namespace Bird_s_Replay_Manager
         private Button refreshButton;
         private TextBox textBox1;
         private TextBox textBox2;
+        private Button deleteButton;
     }
 }
 
