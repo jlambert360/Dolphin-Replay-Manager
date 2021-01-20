@@ -19,6 +19,7 @@ namespace Bird_s_Replay_Manager
         public string dolphinPath;
         public string replayFilePath;
         public string userInput;
+        public bool cancelled = false;
 
         bool itemSelected = false;
 
@@ -50,17 +51,17 @@ namespace Bird_s_Replay_Manager
         private void locationButton_Click(object sender, EventArgs e)
         {
             fileBrowse(); //Open file browser
-            while (!File.Exists(dolphinPath + "/Dolphin.exe")) //While program can't find Dolphin.exe
+            while (!File.Exists(dolphinPath + "/Dolphin.exe") && cancelled == false) //While program can't find Dolphin.exe
             {
                 System.Windows.Forms.MessageBox.Show("Please select the folder that contains Dolphin.exe", "Error!"); //Show an error popup
                 fileBrowse(); //Reopen the file browser
             }
-            if (!Directory.Exists(dolphinPath + "/ReplayData")) //Check if ReplayData folder exists
+            if (!Directory.Exists(dolphinPath + "/ReplayData") && cancelled == false) //Check if ReplayData folder exists
             {
                 Directory.CreateDirectory(dolphinPath + "/ReplayData"); //Create ReplayData folder
                 refreshListboxes(); //Refresh items in listboxes
             }
-            else //If ReplayData folder exists
+            else if (Directory.Exists(dolphinPath + "/ReplayData") && cancelled == false) //If ReplayData folder exists
             {
                 refreshListboxes(); //Refresh items in listboxes
             }
@@ -220,13 +221,16 @@ namespace Bird_s_Replay_Manager
         {
             using (var fbd = new FolderBrowserDialog())
             {
+                cancelled = false; //Set cancelled to false in case the file browser is reopened
                 DialogResult result = fbd.ShowDialog(); //Display the file browser dialog
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath)) //Set path to folder that was selected
                 {
                     string[] files = Directory.GetFiles(fbd.SelectedPath); //Get all files in the selected path
-                    dolphinPath = fbd.SelectedPath; //Set dolphinPath to the selected path 
+                    dolphinPath = fbd.SelectedPath; //Set dolphinPath to the selected path
                 }
+                else if (result == DialogResult.Cancel) //If browsing is cancelled
+                    cancelled = true; //Set cancelled to true
             }
         }
 
