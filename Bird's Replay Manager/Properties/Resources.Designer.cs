@@ -83,6 +83,16 @@ namespace Bird_s_Replay_Manager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PPlus {
+            get {
+                object obj = ResourceManager.GetObject("PPlus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ujelly {
             get {
                 object obj = ResourceManager.GetObject("ujelly", resourceCulture);

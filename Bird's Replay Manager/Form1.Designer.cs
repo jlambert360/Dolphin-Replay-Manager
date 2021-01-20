@@ -89,7 +89,7 @@ namespace Bird_s_Replay_Manager
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = global::Bird_s_Replay_Manager.Properties.Resources.ujelly;
+            this.panel1.BackgroundImage = global::Bird_s_Replay_Manager.Properties.Resources.PPlus;
             this.panel1.Location = new System.Drawing.Point(4, 1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(32, 32);
