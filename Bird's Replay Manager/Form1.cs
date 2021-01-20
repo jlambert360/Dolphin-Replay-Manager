@@ -186,16 +186,22 @@ namespace Bird_s_Replay_Manager
             else //If a path was chosen
             {
                 if (itemSelected == true) //Check if an item is selected
+                {
                     replayFilePath = dolphinPath + "/ReplayData/" + listBox1.SelectedItem.ToString(); //Set replayFilePath to the selected replay file
+                    DialogResult deleteResult = MessageBox.Show("Are you sure you want to delete this file?\nYou won't be able to get it back.", "Confirm Deletion", MessageBoxButtons.YesNo); //Confirm if the user wants to delete a file
+                    if (deleteResult == DialogResult.Yes) //Check if yes was selected
+                    {
+                        if (File.Exists(replayFilePath)) //If the replay file exists and an item is selected
+                        {
+                            File.Delete(replayFilePath); //Delete selected replay
+                            listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
+                            listBox1.ClearSelected(); //Clear which replay was selected
+                            refreshListboxes(); //Refresh items in listboxes
+                        }
+                    }
+                }
                 else if (itemSelected == false) //Check if itemselected is false
                     MessageBox.Show("No replay file selected!", "Error!"); //Display an error
-                if (File.Exists(replayFilePath) && itemSelected == true) //If the replay file exists and an item is selected
-                {
-                    File.Delete(replayFilePath); //Delete selected replay
-                    listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
-                    listBox1.ClearSelected(); //Clear which replay was selected
-                    refreshListboxes(); //Refresh items in listboxes
-                }
             }
         }
         #endregion
