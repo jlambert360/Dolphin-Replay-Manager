@@ -35,6 +35,11 @@ namespace Bird_s_Replay_Manager
         public Form1()
         {
             InitializeComponent();
+            if (File.Exists(Directory.GetCurrentDirectory() + "/Dolphin.exe")) //Check to see if dolphin is in the same directory
+            {
+                dolphinPath = Directory.GetCurrentDirectory(); //Set dolphinPath to the current path
+                refreshListboxes(); //Refresh items in listboxes
+            }
         }
 
         #region ToolsMenu
