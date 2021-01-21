@@ -39,6 +39,10 @@ namespace Bird_s_Replay_Manager
             if (File.Exists(Directory.GetCurrentDirectory() + "/Dolphin.exe")) //Check to see if dolphin is in the same directory
             {
                 dolphinPath = Directory.GetCurrentDirectory(); //Set dolphinPath to the current path
+                if (!Directory.Exists(dolphinPath + "/ReplayData")) //Check if ReplayData folder exists
+                {
+                    Directory.CreateDirectory(dolphinPath + "/ReplayData"); //Create ReplayData folder
+                }
                 refreshListboxes(); //Refresh items in listboxes
             }
         }
