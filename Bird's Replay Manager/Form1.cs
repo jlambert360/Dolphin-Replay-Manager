@@ -43,6 +43,10 @@ namespace Bird_s_Replay_Manager
                 {
                     Directory.CreateDirectory(dolphinPath + "/ReplayData"); //Create ReplayData folder
                 }
+                if(!Directory.Exists(dolphinPath + "/ReplayData/Backups"))
+                {
+                    Directory.CreateDirectory(dolphinPath + "/ReplayData/Backups");
+                }
                 refreshListboxes(); //Refresh items in listboxes
             }
         }
@@ -69,6 +73,10 @@ namespace Bird_s_Replay_Manager
             {
                 refreshListboxes(); //Refresh items in listboxes
             }
+            if (!Directory.Exists(dolphinPath + "/ReplayData/Backups") && cancelled == false) { //If ReplayData/Backups doesn't exist
+                Directory.CreateDirectory(dolphinPath + "/ReplayData/Backups");
+                refreshListboxes();
+            }
         }
 
         private void useReplayButton_Click(object sender, EventArgs e)
@@ -86,16 +94,16 @@ namespace Bird_s_Replay_Manager
 
                 while (File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //While there is a collect.vff file in the user folder and a replay is selected
                 {
-                    string path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to a default backup in the ReplayData folder
+                    string path = dolphinPath + "/ReplayData/Backups/collect Backup 1.vff"; //Set path to a default backup in the ReplayData folder
 
                     for (int i = 1; File.Exists(path); ++i) //Add 1 to file name until no matching file name is found
                     {
-                        if (!File.Exists(dolphinPath + "/ReplayData/collect Backup 1.vff")) //If default replay backup doesnt't exist
-                            path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to default replay backup
+                        if (!File.Exists(dolphinPath + "/ReplayData/Backups/collect Backup 1.vff")) //If default replay backup doesnt't exist
+                            path = dolphinPath + "/ReplayData/Backup/collect Backup 1.vff"; //Set path to default replay backup
 
                         else if (File.Exists(path)) //But if a replay backup does exist
                         {
-                            path = dolphinPath + "/ReplayData/collect Backup " + i + ".vff"; //Set path to backup + an open number
+                            path = dolphinPath + "/ReplayData/Backups/collect Backup " + i + ".vff"; //Set path to backup + an open number
                         }
                     }
 
