@@ -104,6 +104,7 @@ namespace Bird_s_Replay_Manager
                 if (!File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //If there is no replay save file in the user folder
                 {
                     System.IO.File.Move(replayFilePath, dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff"); //Move the selected replay to the user folder and rename it
+                    System.IO.File.Copy(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff", replayFilePath); //Make a copy of moved file at original location to preserve folder state
                     listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
                     listBox1.ClearSelected(); //Clear which replay was selected
                     refreshListboxes(); //Refresh items in listboxes
