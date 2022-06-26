@@ -76,6 +76,13 @@ namespace Bird_s_Replay_Manager
             if (itemSelected == true) //Check if an item is selected
             {
                 replayFilePath = dolphinPath + "/ReplayData/" + listBox1.SelectedItem.ToString(); //Set replayFilePath to the selected replay file
+                // Filename should be in format "collect.vff DD-MM-YYYY HH-MM-SS" if it hasn't been used before
+                // If selected a backup file, will be "collect Backup <stuff>"
+                // Below comments for future timestamp saving if needed
+                // Honestly, probably don't even need the backup stuff if you're retaining the original file but that's neither here nor there
+
+                // string originalFilename = listBox1.SelectedItem.ToString();
+                // string filenameInfo = originalFilename.Substring(originalFilename.IndexOf(' ') + 1); // Will grab file info after collect.vff 
 
                 while (File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //While there is a collect.vff file in the user folder and a replay is selected
                 {
