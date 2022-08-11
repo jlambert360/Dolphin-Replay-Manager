@@ -43,6 +43,10 @@ namespace Bird_s_Replay_Manager
                 {
                     Directory.CreateDirectory(dolphinPath + "/ReplayData"); //Create ReplayData folder
                 }
+                if(!Directory.Exists(dolphinPath + "/ReplayData/Backups"))
+                {
+                    Directory.CreateDirectory(dolphinPath + "/ReplayData/Backups");
+                }
                 refreshListboxes(); //Refresh items in listboxes
             }
         }
@@ -69,6 +73,10 @@ namespace Bird_s_Replay_Manager
             {
                 refreshListboxes(); //Refresh items in listboxes
             }
+            if (!Directory.Exists(dolphinPath + "/ReplayData/Backups") && cancelled == false) { //If ReplayData/Backups doesn't exist
+                Directory.CreateDirectory(dolphinPath + "/ReplayData/Backups");
+                refreshListboxes();
+            }
         }
 
         private void useReplayButton_Click(object sender, EventArgs e)
@@ -76,19 +84,26 @@ namespace Bird_s_Replay_Manager
             if (itemSelected == true) //Check if an item is selected
             {
                 replayFilePath = dolphinPath + "/ReplayData/" + listBox1.SelectedItem.ToString(); //Set replayFilePath to the selected replay file
+                // Filename should be in format "collect.vff DD-MM-YYYY HH-MM-SS" if it hasn't been used before
+                // If selected a backup file, will be "collect Backup <stuff>"
+                // Below comments for future timestamp saving if needed
+                // Honestly, probably don't even need the backup stuff if you're retaining the original file but that's neither here nor there
+
+                // string originalFilename = listBox1.SelectedItem.ToString();
+                // string filenameInfo = originalFilename.Substring(originalFilename.IndexOf(' ') + 1); // Will grab file info after collect.vff 
 
                 while (File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //While there is a collect.vff file in the user folder and a replay is selected
                 {
-                    string path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to a default backup in the ReplayData folder
+                    string path = dolphinPath + "/ReplayData/Backups/collect Backup 1.vff"; //Set path to a default backup in the ReplayData folder
 
                     for (int i = 1; File.Exists(path); ++i) //Add 1 to file name until no matching file name is found
                     {
-                        if (!File.Exists(dolphinPath + "/ReplayData/collect Backup 1.vff")) //If default replay backup doesnt't exist
-                            path = dolphinPath + "/ReplayData/collect Backup 1.vff"; //Set path to default replay backup
+                        if (!File.Exists(dolphinPath + "/ReplayData/Backups/collect Backup 1.vff")) //If default replay backup doesnt't exist
+                            path = dolphinPath + "/ReplayData/Backup/collect Backup 1.vff"; //Set path to default replay backup
 
                         else if (File.Exists(path)) //But if a replay backup does exist
                         {
-                            path = dolphinPath + "/ReplayData/collect Backup " + i + ".vff"; //Set path to backup + an open number
+                            path = dolphinPath + "/ReplayData/Backups/collect Backup " + i + ".vff"; //Set path to backup + an open number
                         }
                     }
 
@@ -97,6 +112,7 @@ namespace Bird_s_Replay_Manager
                 if (!File.Exists(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff") && itemSelected == true) //If there is no replay save file in the user folder
                 {
                     System.IO.File.Move(replayFilePath, dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff"); //Move the selected replay to the user folder and rename it
+                    System.IO.File.Copy(dolphinPath + "/User/Wii/title/00010000/52534245/data/collect.vff", replayFilePath); //Make a copy of moved file at original location to preserve folder state
                     listBox1.Items.Remove(listBox1.SelectedItem); //Remove the currently selected replay
                     listBox1.ClearSelected(); //Clear which replay was selected
                     refreshListboxes(); //Refresh items in listboxes
